@@ -3,7 +3,11 @@ package com.udacity.sandwichclub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -19,6 +23,9 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ImageView ingredientsIv = findViewById(R.id.image_iv);
 
@@ -43,7 +50,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        populateUI();
+        populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
                 .into(ingredientsIv);
@@ -56,7 +63,26 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    private void populateUI() {
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        if(android.R.id.home == item.getItemId()) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    private void populateUI(Sandwich sandwich) {
+        set(R.id.origin_tv, blank(sandwich.getPlaceOfOrigin()));
+        set(R.id.also_known_tv, blank(TextUtils.join("\n", sandwich.getAlsoKnownAs())));
+        set(R.id.ingredients_tv, blank(TextUtils.join("\n", sandwich.getIngredients())));
+        set(R.id.description_tv, blank(sandwich.getDescription()));
+    }
+
+    private void set(int id, String value){
+        ((TextView) findViewById(id)).setText(value);
+    }
+
+    private String blank(String check){
+        return (!TextUtils.isEmpty(check.trim()))? check : "n/a";
     }
 }

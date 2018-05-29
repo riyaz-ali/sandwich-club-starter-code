@@ -8,4 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Text Styles for details view -->
+    <style name="AppTheme.Details" parent="android:TextAppearance">
+        <item name="android:textColor">#A000</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+    <style name="AppTheme.Details.Label">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="AppTheme.Details.Value">
+
+    </style>
 </resources>
